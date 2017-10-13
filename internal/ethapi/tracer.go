@@ -134,6 +134,14 @@ func (dw *dbWrapper) getBalance(addr common.Address) *big.Int {
 	return dw.db.GetBalance(addr)
 }
 
+func (dw *dbWrapper) getBalanceByAddress(addrString string) *big.Int {
+    if(common.IsHexAddress(addrString)){
+        return dw.db.GetBalance(common.HexToAddress(addrString))
+    } else {
+        return dw.db.GetBalance(common.StringToAddress(addrString))
+    }
+}
+
 // getNonce retrieves an account's nonce
 func (dw *dbWrapper) getNonce(addr common.Address) uint64 {
 	return dw.db.GetNonce(addr)
